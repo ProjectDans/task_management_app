@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:task_management_app/app/utils/style/AppColor.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:task_management_app/app/routes/app_pages.dart';
@@ -17,7 +18,7 @@ class SideBar extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.only(top: 16),
         height: Get.height,
-        color: Colors.blue[100],
+        color: AppColor.primaryBg,
         child: SingleChildScrollView(
             child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -49,7 +50,7 @@ class SideBar extends StatelessWidget {
                           Get.currentRoute == '/home'
                               ? Ionicons.desktop
                               : Ionicons.desktop_outline,
-                          color: Colors.grey,
+                          color: AppColor.primaryText,
                         ),
                       ),
                       const SizedBox(
@@ -58,7 +59,7 @@ class SideBar extends StatelessWidget {
                       Text(
                         "Home",
                         style: GoogleFonts.poppins(
-                            fontSize: 14, color: Colors.grey),
+                            fontSize: 14, color: AppColor.primaryText),
                       ),
                     ],
                   ),
@@ -171,6 +172,45 @@ class SideBar extends StatelessWidget {
                     ],
                   ),
                   onTap: () => Get.toNamed(Routes.PROFILE),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 100,
+              child: Center(
+                child: InkWell(
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 40,
+                        width: 100,
+                        child: const Icon(
+                          Ionicons.log_out,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 7,
+                      ),
+                      Text(
+                        "Sign Out",
+                        style: GoogleFonts.poppins(
+                            fontSize: 14, color: Colors.grey),
+                      )
+                    ],
+                  ),
+                  onTap: () {
+                    Get.defaultDialog(
+                        title: "Sign Out",
+                        content: const Text("Are You Sure Want To Sign Out?"),
+                        cancel: ElevatedButton(
+                          onPressed: () => Get.back(),
+                          child: const Text("Cancel"),
+                        ),
+                        confirm: ElevatedButton(
+                            onPressed: () => Get.toNamed(Routes.LOGIN),
+                            child: const Text("Sign Out")));
+                  },
                 ),
               ),
             ),
