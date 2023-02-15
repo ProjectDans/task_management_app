@@ -54,6 +54,9 @@ class ProfileWidget extends StatelessWidget {
           : Center(
               child: Column(
                 children: [
+                  const SizedBox(
+                    height: 15,
+                  ),
                   const ClipRRect(
                     child: CircleAvatar(
                       backgroundColor: Colors.amberAccent,

@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:task_management_app/app/utils/style/AppColor.dart';
 import 'package:task_management_app/app/utils/widget/header.dart';
+import 'package:task_management_app/app/utils/widget/myFriends.dart';
 import 'package:task_management_app/app/utils/widget/sideBar.dart';
 
 import '../controllers/friends_controller.dart';
@@ -83,7 +84,9 @@ class FriendsView extends GetView<FriendsController> {
                         ),
                   Expanded(
                     child: Container(
-                      padding: const EdgeInsets.all(50),
+                      padding: !context.isPhone
+                          ? const EdgeInsets.all(25)
+                          : const EdgeInsets.all(20),
                       margin: !context.isPhone
                           ? const EdgeInsets.only(
                               top: 30, left: 16, right: 16, bottom: 16)
@@ -92,6 +95,72 @@ class FriendsView extends GetView<FriendsController> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "People may you know",
+                            style: GoogleFonts.poppins(
+                                fontSize: 18, color: AppColor.primaryText),
+                          ),
+                          SizedBox(
+                            height: 200,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              clipBehavior: Clip.antiAlias,
+                              itemCount: 10,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Stack(
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(35),
+                                        child: const Image(
+                                          image: NetworkImage(
+                                              'https://static.vecteezy.com/system/resources/previews/002/275/847/original/male-avatar-profile-icon-of-smiling-caucasian-man-vector.jpg'),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        bottom: 10,
+                                        left: 10,
+                                        child: Text(
+                                          "Sylena Teresia",
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 14,
+                                              color: Colors.white),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        bottom: 0,
+                                        right: 0,
+                                        child: SizedBox(
+                                          height: 35,
+                                          width: 35,
+                                          child: ElevatedButton(
+                                            onPressed: () {},
+                                            style: ElevatedButton.styleFrom(
+                                              padding: EdgeInsets.zero,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(90),
+                                              ),
+                                            ),
+                                            child: const Icon(
+                                                Ionicons.add_circle_outline),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          MyFriends(),
+                        ],
                       ),
                     ),
                   ),
