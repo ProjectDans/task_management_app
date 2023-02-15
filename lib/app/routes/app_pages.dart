@@ -31,17 +31,17 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.TASK,
-      page: () => const TaskView(),
+      page: () => TaskView(),
       binding: TaskBinding(),
     ),
     GetPage(
       name: _Paths.FRIENDS,
-      page: () => const FriendsView(),
+      page: () => FriendsView(),
       binding: FriendsBinding(),
     ),
     GetPage(
       name: _Paths.PROFILE,
-      page: () => const ProfileView(),
+      page: () => ProfileView(),
       binding: ProfileBinding(),
     ),
   ];

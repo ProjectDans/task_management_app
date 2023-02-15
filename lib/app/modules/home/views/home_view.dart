@@ -5,7 +5,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:task_management_app/app/utils/style/AppColor.dart';
 import 'package:task_management_app/app/utils/widget/header.dart';
+import 'package:task_management_app/app/utils/widget/myFriends.dart';
+import 'package:task_management_app/app/utils/widget/myTask.dart';
 import 'package:task_management_app/app/utils/widget/sideBar.dart';
+import 'package:task_management_app/app/utils/widget/upcomingTask.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -83,7 +86,9 @@ class HomeView extends GetView<HomeController> {
                         ),
                   Expanded(
                     child: Container(
-                      padding: const EdgeInsets.all(50),
+                      padding: !context.isPhone
+                          ? const EdgeInsets.all(25)
+                          : const EdgeInsets.all(20),
                       margin: !context.isPhone
                           ? const EdgeInsets.only(
                               top: 30, left: 16, right: 16, bottom: 16)
@@ -92,6 +97,42 @@ class HomeView extends GetView<HomeController> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: SizedBox(
+                        height: Get.height * 0.3,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "My Task",
+                                    style: GoogleFonts.poppins(
+                                        fontSize: 24,
+                                        color: AppColor.primaryText),
+                                  ),
+                                  const SizedBox(
+                                    height: 8,
+                                  ),
+                                  MyTask(),
+                                ],
+                              ),
+                            ),
+                            !context.isPhone
+                                ? Expanded(
+                                    child: Row(
+                                      children: [
+                                        UpcomingTask(),
+                                        MyFriends(),
+                                      ],
+                                    ),
+                                  )
+                                : UpcomingTask(),
+                          ],
+                        ),
                       ),
                     ),
                   ),
