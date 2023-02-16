@@ -17,7 +17,7 @@ class TaskView extends GetView<TaskController> {
     return SafeArea(
       child: Scaffold(
         key: _drawerKey,
-        drawer: const SideBar(),
+        drawer: SizedBox(width: 150, child: const SideBar()),
         backgroundColor: AppColor.primaryBg,
         body: Row(
           children: [
@@ -83,7 +83,9 @@ class TaskView extends GetView<TaskController> {
                         ),
                   Expanded(
                     child: Container(
-                      padding: const EdgeInsets.all(50),
+                      padding: !context.isPhone
+                          ? const EdgeInsets.all(25)
+                          : const EdgeInsets.all(20),
                       margin: !context.isPhone
                           ? const EdgeInsets.only(
                               top: 30, left: 16, right: 16, bottom: 16)
@@ -93,12 +95,141 @@ class TaskView extends GetView<TaskController> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(15),
                       ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "My Task",
+                            style: GoogleFonts.poppins(
+                                fontSize: 24, color: AppColor.primaryText),
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Expanded(
+                            child: ListView.builder(
+                              itemCount: 8,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  height: 200,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(17),
+                                    color: AppColor.primaryCard,
+                                  ),
+                                  margin: EdgeInsets.all(16),
+                                  padding: EdgeInsets.all(16),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                            child: const CircleAvatar(
+                                              backgroundColor:
+                                                  Colors.amberAccent,
+                                              radius: 25,
+                                              foregroundImage: NetworkImage(
+                                                  'https://static.vecteezy.com/system/resources/previews/002/275/847/original/male-avatar-profile-icon-of-smiling-caucasian-man-vector.jpg'),
+                                            ),
+                                          ),
+                                          ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                            child: const CircleAvatar(
+                                              backgroundColor:
+                                                  Colors.amberAccent,
+                                              radius: 25,
+                                              foregroundImage: NetworkImage(
+                                                  'https://static.vecteezy.com/system/resources/previews/002/275/847/original/male-avatar-profile-icon-of-smiling-caucasian-man-vector.jpg'),
+                                            ),
+                                          ),
+                                          Spacer(),
+                                          Container(
+                                            height: 25,
+                                            width: 80,
+                                            color: AppColor.primaryBg,
+                                            child: Center(
+                                              child: Text(
+                                                "100%",
+                                                style: GoogleFonts.poppins(
+                                                    fontSize: 12,
+                                                    color:
+                                                        AppColor.primaryText),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Spacer(),
+                                      Container(
+                                        height: 25,
+                                        width: 80,
+                                        color: AppColor.primaryBg,
+                                        child: Center(
+                                          child: Text(
+                                            "10 / 10 Task",
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 12,
+                                                color: AppColor.primaryText),
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                        "Flutter Class",
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 20,
+                                            color: AppColor.primaryText),
+                                      ),
+                                      Text(
+                                        "Deadline 2 Jam Lagi",
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 12,
+                                            color: AppColor.primaryText),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                              clipBehavior: Clip.antiAlias,
+                              // scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
           ],
+        ),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            Get.bottomSheet(
+              Container(
+                margin: context.isPhone
+                    ? EdgeInsets.zero
+                    : EdgeInsets.only(right: 150, left: 150),
+                height: Get.height,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20)),
+                  color: Colors.white,
+                ),
+              ),
+            );
+          },
+          label: Text(
+            "Add Task",
+            style:
+                GoogleFonts.poppins(fontSize: 12, fontWeight: FontWeight.bold),
+          ),
+          icon: const Icon(Ionicons.add),
         ),
       ),
     );

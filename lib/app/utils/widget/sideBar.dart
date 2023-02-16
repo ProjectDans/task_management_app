@@ -175,45 +175,6 @@ class SideBar extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
-              height: 100,
-              child: Center(
-                child: InkWell(
-                  child: Column(
-                    children: [
-                      Container(
-                        height: 40,
-                        width: 100,
-                        child: const Icon(
-                          Ionicons.log_out,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 7,
-                      ),
-                      Text(
-                        "Sign Out",
-                        style: GoogleFonts.poppins(
-                            fontSize: 14, color: Colors.grey),
-                      )
-                    ],
-                  ),
-                  onTap: () {
-                    Get.defaultDialog(
-                        title: "Sign Out",
-                        content: const Text("Are You Sure Want To Sign Out?"),
-                        cancel: ElevatedButton(
-                          onPressed: () => Get.back(),
-                          child: const Text("Cancel"),
-                        ),
-                        confirm: ElevatedButton(
-                            onPressed: () => Get.toNamed(Routes.LOGIN),
-                            child: const Text("Sign Out")));
-                  },
-                ),
-              ),
-            ),
           ],
         )),
       ),

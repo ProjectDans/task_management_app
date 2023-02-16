@@ -1,15 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:task_management_app/app/data/controller/auth_controller.dart';
 import 'package:task_management_app/app/routes/app_pages.dart';
 import 'package:task_management_app/app/utils/style/AppColor.dart';
 
 class MyFriends extends StatelessWidget {
-  const MyFriends({
-    super.key,
-  });
+  final authCon = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -44,35 +44,57 @@ class MyFriends extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              SizedBox(
-                height: 400,
-                child: GridView.builder(
+              StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+                stream: authCon.streamFriends(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+
+                  var myFriends = (snapshot.data!.data()
+                      as Map<String, dynamic>)['emailFriends'] as List;
+
+                  return GridView.builder(
                     shrinkWrap: true,
-                    itemCount: 8,
+                    itemCount: myFriends.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: context.isPhone ? 2 : 3,
                         crossAxisSpacing: 20,
                         mainAxisSpacing: 20),
                     itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(70),
-                            child: const CircleAvatar(
-                              backgroundColor: Colors.amberAccent,
-                              radius: 60,
-                              foregroundImage: NetworkImage(
-                                  'https://static.vecteezy.com/system/resources/previews/002/275/847/original/male-avatar-profile-icon-of-smiling-caucasian-man-vector.jpg'),
-                            ),
-                          ),
-                          Text(
-                            "Sylena Teresia",
-                            style: GoogleFonts.poppins(
-                                fontSize: 12, fontWeight: FontWeight.bold),
-                          )
-                        ],
-                      );
-                    }),
+                      return StreamBuilder<
+                              DocumentSnapshot<Map<String, dynamic>>>(
+                          stream: authCon.streamUsers(myFriends[index]),
+                          builder: (context, snapshot2) {
+                            if (snapshot2.connectionState ==
+                                ConnectionState.waiting) {
+                              return const Center(
+                                  child: CircularProgressIndicator());
+                            }
+                            var data = snapshot2.data!.data();
+
+                            return Column(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(35),
+                                  child: CircleAvatar(
+                                    radius: 50,
+                                    foregroundImage:
+                                        NetworkImage(data!['photo']),
+                                  ),
+                                ),
+                                Text(
+                                  data['name'],
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              ],
+                            );
+                          });
+                    },
+                  );
+                },
               ),
             ],
           ),

@@ -25,16 +25,11 @@ class Header extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Task Management",
+                  "Task Management Apps",
                   style: GoogleFonts.poppins(
-                      fontSize: 30,
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
                       color: AppColor.primaryText),
-                ),
-                Text(
-                  "Manage Task Easier With Friends",
-                  style: GoogleFonts.poppins(
-                      fontSize: 10, color: AppColor.primaryText),
                 ),
               ],
             ),

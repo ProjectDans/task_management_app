@@ -8,10 +8,14 @@ environment:
 dependencies: 
   cupertino_icons: ^1.0.2
   get: 4.6.5
-  flutter: 
-    sdk: flutter
   google_fonts: ^4.0.3
   ionicons: ^0.2.2
+  google_sign_in: 5.4.4
+  firebase_core: 2.6.0
+  firebase_auth: ^4.2.6
+  cloud_firestore: ^4.4.0
+  flutter: 
+    sdk: flutter
 
 dev_dependencies: 
   flutter_lints: ^2.0.0
@@ -19,7 +23,7 @@ dev_dependencies:
     sdk: flutter
 
 flutter: 
-  assets:
+  assets: 
     - assets/
   uses-material-design: true
 
